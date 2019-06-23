@@ -42,7 +42,7 @@ For the sake of simplicity, it is safe to assume that
 •	Input file and records are all in a valid format
 •	Transaction are recorded in order
 
-```
+
 
 ### Prerequisites
 
