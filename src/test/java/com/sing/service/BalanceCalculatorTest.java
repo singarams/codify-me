@@ -26,6 +26,9 @@ public class BalanceCalculatorTest {
         transactionListWithReversal.add(new Transaction("TX10002", "ACC282828", "ACC181818", "20/10/2019 18:30:00", "24.75", "PAYMENT"));
         transactionListWithReversal.add(new Transaction("TX10003", "ACC181818", "ACC282828", "20/10/2019 19:00:00", "12.25", "PAYMENT"));
         transactionListWithReversal.add(new Transaction("TX10004", "ACC282828", "ACC181818", "20/10/2019 19:30:00", "24.75", "REVERSAL", "TX10002"));
+        transactionListWithReversal.add(new Transaction("TX10005", "ACC2424242", "ACC020202", "20/10/2018 19:30:00", "24.75", "PAYMENT"));
+        transactionListWithReversal.add(new Transaction("TX10006", "ACC2424242", "ACC020202", "20/10/2018 19:35:00", "24.75", "PAYMENT"));
+        transactionListWithReversal.add(new Transaction("TX10007", "ACC2424242", "ACC020202", "20/10/2018 19:45:00", "24.75", "REVERSAL", "TX10006"));
     }
 
     @DisplayName("Calculator should be negative the Debit Calculations")
@@ -127,6 +130,17 @@ public class BalanceCalculatorTest {
                 "The Number of Transactions included is: 2", value);
     }
 
+    @DisplayName("Calculator should be positive on calculate all transactions with Reversals in debit")
+    @Test
+    void testCalculatorForAllWithReversalsDebits(){
+        BalanceCalculator balanceCalculator = new BalanceCalculator(transactionListWithReversal);
+        String value = balanceCalculator.calculateRelativeBalance("ACC020202", getLocalDateTimeFromString("20/10/2018 19:25:00"), getLocalDateTimeFromString("20/10/2018 19:55:00"));
+        Assertions.assertEquals("\n" +
+                "Here is the requested details:\n" +
+                "Relative balance for the period is: $24.75 \n" +
+                "The Number of Transactions included is: 1", value);
+    }
+
     @DisplayName("Calculator should be negative on the Debit Calculations With Reversals")
     @Test
     void testCalculatorForDebitsWithReversals(){
@@ -159,7 +173,5 @@ public class BalanceCalculatorTest {
                 "Relative balance for the period is: -$4.25 \n" +
                 "The Number of Transactions included is: 2", value);
     }
-
-
 
 }

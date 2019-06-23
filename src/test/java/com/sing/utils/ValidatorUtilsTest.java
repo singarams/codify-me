@@ -28,5 +28,13 @@ class ValidatorUtilsTest {
         assertFalse(validatorUtils.isValidFile("input.ABCD", CodeChallenge.MIME_TYPE, CodeChallenge.CSV));
     }
 
+    @DisplayName("Should return false When invalid file extension is supplied")
+    @Test
+    void invalidFileMIME1() throws IOException {
+
+        ValidatorUtils validatorUtils = new ValidatorUtils();
+        assertFalse(validatorUtils.isValidFile("dummy.docx.csv", CodeChallenge.MIME_TYPE, CodeChallenge.CSV));
+    }
+
 
 }
